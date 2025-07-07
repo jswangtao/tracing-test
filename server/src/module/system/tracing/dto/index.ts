@@ -3,14 +3,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { PagingDto } from 'src/common/dto/index';
 
-export enum StatusEnum {
-  STATIC = '0',
-  DYNAMIC = '1',
-}
-export enum TypeEnum {
-  Instruct = '1',
-  Tracing = '2',
-}
+// export enum StatusEnum {
+//   STATIC = '0',
+//   DYNAMIC = '1',
+// }
+
 export class CreateTracingDto {
   @ApiProperty({ required: true })
   @IsString()
@@ -26,17 +23,10 @@ export class UpdateTracingDto extends CreateTracingDto {
 }
 
 export class ListTracingDto extends PagingDto {
+  @ApiProperty({
+    required: false,
+  })
   @IsOptional()
   @IsString()
-  @Length(0, 50)
-  TracingTitle?: string;
-
-  @IsOptional()
-  @IsString()
-  @IsEnum(TypeEnum)
-  TracingType?: string;
-
-  @IsOptional()
-  @IsString()
-  createBy?: string;
+  eventType?: string;
 }

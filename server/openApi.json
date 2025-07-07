@@ -2936,6 +2936,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "eventType",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -4754,6 +4762,9 @@
           "isAsc": {
             "type": "string",
             "description": "排序规则"
+          },
+          "eventType": {
+            "type": "string"
           }
         },
         "required": [
