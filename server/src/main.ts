@@ -10,12 +10,20 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
 import { writeFileSync } from 'fs';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true, // 开启跨域访问
   });
   const config = app.get(ConfigService);
+  // 添加文本解析中间件
+  app.use(
+    bodyParser.text({
+      type: ['text/plain'],
+    }),
+  );
+
   // 设置访问频率
   app.use(
     rateLimit({

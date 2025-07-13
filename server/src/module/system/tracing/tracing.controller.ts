@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiBody, ApiConsumes, ApiQuery, ApiBearerAuth } 
 import { TracingService } from './tracing.service';
 import { CreateTracingDto, UpdateTracingDto, ListTracingDto } from './dto/index';
 import { RequirePermission } from 'src/common/decorators/require-premission.decorator';
+import { ResultData } from 'src/common/utils/result';
 
 @ApiTags('监控')
 @Controller('system/tracing')
@@ -13,14 +14,12 @@ export class TracingController {
     summary: '监控-创建',
   })
   @ApiBody({
-    type: CreateTracingDto,
+    type: String,
   })
-  @RequirePermission('system:tracing:add')
   @Post()
-  create(@Body() createConfigDto: CreateTracingDto, @Request() req) {
-    console.log('🚀🚀🚀======>>>createConfigDto,req', createConfigDto, req);
-    // createConfigDto['createBy'] = req.user.userName;
-    // return this.tracingService.create(createConfigDto);
+  create(@Body() createConfigDto: string, @Request() req) {
+    console.log('🚀🚀🚀======>>>createConfigDto,req', JSON.parse(createConfigDto));
+    return this.tracingService.create(JSON.parse(createConfigDto));
   }
 
   @ApiOperation({

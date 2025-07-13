@@ -9,15 +9,22 @@ import { CreateTracingDto, UpdateTracingDto, ListTracingDto } from './dto/index'
 export class TracingService {
   constructor(
     @InjectRepository(SysTracingEntity)
-    private readonly sysNoticeEntityRep: Repository<SysTracingEntity>,
+    private readonly sysTracingEntityRep: Repository<SysTracingEntity>,
   ) {}
-  async create(createNoticeDto: CreateTracingDto) {
-    await this.sysNoticeEntityRep.save(createNoticeDto);
+  async create(createTracingDto: CreateTracingDto) {
+    // 组装数据
+    const list = createTracingDto.eventInfo.map((item) => {
+      return {
+        eventType: item.eventType,
+        trigger_page_url: item.triggerPageUrl,
+      };
+    });
+    await Promise.all(list.map((item) => this.sysTracingEntityRep.save(item)));
     return ResultData.ok();
   }
 
   async findAll(query: ListTracingDto) {
-    const entity = this.sysNoticeEntityRep.createQueryBuilder('entity');
+    const entity = this.sysTracingEntityRep.createQueryBuilder('entity');
     entity.where('entity.delFlag = :delFlag', { delFlag: '0' });
 
     // if (query.tracingTitle) {
@@ -46,7 +53,7 @@ export class TracingService {
   }
 
   async findOne(tracingId: number) {
-    // const data = await this.sysNoticeEntityRep.findOne({
+    // const data = await this.sysTracingEntityRep.findOne({
     //   where: {
     //     tracingId: tracingId,
     //   },
@@ -54,18 +61,18 @@ export class TracingService {
     // return ResultData.ok(data);
   }
 
-  async update(updateNoticeDto: UpdateTracingDto) {
-    // await this.sysNoticeEntityRep.update(
+  async update(updateTracingDto: UpdateTracingDto) {
+    // await this.sysTracingEntityRep.update(
     //   {
-    //     tracingId: updateNoticeDto.tracingId,
+    //     tracingId: updateTracingDto.tracingId,
     //   },
-    //   updateNoticeDto,
+    //   updateTracingDto,
     // );
     // return ResultData.ok();
   }
 
   async remove(tracingIds: number[]) {
-    // const data = await this.sysNoticeEntityRep.update(
+    // const data = await this.sysTracingEntityRep.update(
     //   { tracingId: In(tracingIds) },
     //   {
     //     delFlag: '1',

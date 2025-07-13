@@ -2856,7 +2856,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTracingDto"
+                "type": "string"
               }
             }
           }
@@ -4723,17 +4723,6 @@
           "pageSize"
         ]
       },
-      "CreateTracingDto": {
-        "type": "object",
-        "properties": {
-          "eventType": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "eventType"
-        ]
-      },
       "ListTracingDto": {
         "type": "object",
         "properties": {
@@ -4775,15 +4764,11 @@
       "UpdateTracingDto": {
         "type": "object",
         "properties": {
-          "eventType": {
-            "type": "string"
-          },
           "tracingId": {
             "type": "number"
           }
         },
         "required": [
-          "eventType",
           "tracingId"
         ]
       },

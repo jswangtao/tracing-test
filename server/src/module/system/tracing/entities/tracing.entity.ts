@@ -23,7 +23,7 @@ export class SysTracingEntity extends BaseEntity {
   @Column({ type: 'varchar', name: 'err_message', length: 255, default: '', comment: '错误信息' })
   public errMessage: string;
 
-  @Column({ type: 'text', name: 'err_stack', comment: '完整错误信息' })
+  @Column({ type: 'text', name: 'err_stack', default: null, comment: '完整错误信息' })
   public errStack: string;
 
   @Column({ type: 'int', name: 'line', default: null, comment: '错误行' })

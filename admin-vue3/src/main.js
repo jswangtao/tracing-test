@@ -91,9 +91,11 @@ app.use(ElementPlus, {
 })
 
 app.use(WebTracing, {
-  dsn: 'http://localhost:8080/system/tracing',
-  appName: 'nest-admin',
+  dsn: `${import.meta.env.VITE_APP_BASE_API}/system/tracing`,
+  appName: '测试系统',
+  appName: 'test-admin',
   debug: true,
+  recordScreen: false,
   pv: true,
   performance: true,
   error: true,

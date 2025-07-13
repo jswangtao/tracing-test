@@ -803,10 +803,17 @@ CREATE TABLE `sys_tracing` (
   `send_time` timestamp NULL DEFAULT NULL COMMENT '事件发送时间',
   `trigger_time` timestamp NULL DEFAULT NULL COMMENT '事件发生时间',
   `err_message` varchar(255) DEFAULT NULL COMMENT '错误信息',
-  `err_stack` text COMMENT '完整错误信息',
+  `err_stack` text DEFAULT NULL COMMENT '完整错误信息',
   `line` int DEFAULT NULL COMMENT '错误行',
   `col` int DEFAULT NULL COMMENT '错误列',
   `record_screen` longblob DEFAULT NULL COMMENT '录屏base64',
+  `status` char(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标志',
+  `create_by` varchar(64) NOT NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(6) DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(64) NOT NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) DEFAULT NULL COMMENT '备注',
 
    PRIMARY KEY (`tracing_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='监控记录表';

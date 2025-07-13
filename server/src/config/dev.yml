@@ -67,6 +67,7 @@ perm:
         { path: '/logout', method: 'POST' },
         { path: '/perm/{id}', method: 'GET' },
         { path: '/upload', method: 'POST' },
+        { path: '/system/tracing', method: 'POST' },
       ]
 
 # 用户相关

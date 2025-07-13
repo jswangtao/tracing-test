@@ -19,9 +19,8 @@ export class NoticeController {
   @RequirePermission('system:notice:add')
   @Post()
   create(@Body() createConfigDto: CreateNoticeDto, @Request() req) {
-    console.log('🚀🚀🚀======>>>createConfigDto,req', createConfigDto, req);
-    // createConfigDto['createBy'] = req.user.userName;
-    // return this.noticeService.create(createConfigDto);
+    createConfigDto['createBy'] = req.user.userName;
+    return this.noticeService.create(createConfigDto);
   }
 
   @ApiOperation({
@@ -34,7 +33,6 @@ export class NoticeController {
   @RequirePermission('system:notice:list')
   @Get('/list')
   findAll(@Query() query: ListNoticeDto) {
-    console.log('🚀🚀🚀======>>>query', query);
     return this.noticeService.findAll(query);
   }
 
@@ -53,7 +51,6 @@ export class NoticeController {
   @RequirePermission('system:notice:edit')
   @Put()
   update(@Body() updateNoticeDto: UpdateNoticeDto) {
-    console.log('🚀🚀🚀======>>>updateNoticeDto', updateNoticeDto);
     return this.noticeService.update(updateNoticeDto);
   }
 
